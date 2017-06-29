@@ -27,7 +27,7 @@
 (require 's)
 (require 'dash)
 
-(defvar commit-msg-prefix-log-command " git log --pretty=format:\"%s\"")
+(defvar commit-msg-prefix-log-command "git log --pretty=format:\"%s\"")
 (defvar commit-log-flags "")
 
 (defvar commit-msg-prefix-log-flags "")
