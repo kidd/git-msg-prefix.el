@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2017  Raimon Grau
 
-;; Author: Raimon Grau <rgrau@noname>
+;; Author: Raimon Grau <raimonster@gmail.com>
 ;; Keywords: vc, tools
 
 ;; This program is free software; you can redistribute it and/or modify
