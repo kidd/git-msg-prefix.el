@@ -43,10 +43,10 @@
                   'counsel)))
 
 (defvar commit-msg-prefix-input-map
-  '((ido-completing-read . commit-msg-prefix-ido-completing-read)
+  '((ido-completing-read . ido-completing-read)
     (completing-read . completing-read)
     (helm . commit-msg-prefix-helm-read)
-    (counsel . commit-msg-prefix-counsel-read)))
+    (counsel . ivy-read)))
 
 (defun commit-msg-prefix-input-fun ()
   (funcall (cdr (assoc commit-msg-prefix-input-method
@@ -54,15 +54,9 @@
            commit-msg-prefix-prompt
            (commit-msg-prefix-1)))
 
-(defun commit-msg-prefix-ido-completing-read (prompt log-lines)
-  (ido-completing-read prompt log-lines))
-
 (defun commit-msg-prefix-helm-read (prompt log-lines)
   (helm :sources (helm-build-sync-source prompt
                    :candidates log-lines)))
-
-(defun commit-msg-prefix-counsel-read (prompt log-lines)
-  (ivy-read prompt log-lines))
 
 
 (defun commit-msg-prefix-1 ()
