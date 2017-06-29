@@ -48,18 +48,21 @@
     (helm . commit-msg-prefix-helm-read)
     (counsel . commit-msg-prefix-counsel-read)))
 
-(defun commit-msg-prefix-input-fun (input-method)
-  (cdr (assoc input-method commit-msg-prefix-input-map)))
+(defun commit-msg-prefix-input-fun ()
+  (funcall (cdr (assoc commit-msg-prefix-input-method
+                       commit-msg-prefix-input-map))
+           commit-msg-prefix-prompt
+           (commit-msg-prefix-1)))
 
-(defun commit-msg-prefix-ido-completing-read (log-lines)
-  (ido-completing-read commit-msg-prefix-prompt log-lines))
+(defun commit-msg-prefix-ido-completing-read (prompt log-lines)
+  (ido-completing-read prompt log-lines))
 
-(defun commit-msg-prefix-helm-read (log-lines)
-  (helm :sources (helm-build-sync-source commit-msg-prefix-prompt
+(defun commit-msg-prefix-helm-read (prompt log-lines)
+  (helm :sources (helm-build-sync-source prompt
                    :candidates log-lines)))
 
-(defun commit-msg-prefix-counsel-read (log-lines)
-  (ivy-read commit-msg-prefix-prompt log-lines))
+(defun commit-msg-prefix-counsel-read (prompt log-lines)
+  (ivy-read prompt log-lines))
 
 
 (defun commit-msg-prefix-1 ()
@@ -75,9 +78,7 @@
   (insert
    (second
     (s-match commit-msg-prefix-regex
-             (funcall (commit-msg-prefix-input-fun
-                       commit-msg-prefix-input-method)
-                      (commit-msg-prefix-1))))))
+             (commit-msg-prefix-input-fun)))))
 
 (provide 'commit-msg-prefix)
 ;;; commit-msg-prefix.el ends here
