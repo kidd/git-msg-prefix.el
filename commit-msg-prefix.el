@@ -39,6 +39,7 @@
   "Input method for commit-msg-prefix"
   :group 'commit-msg-prefix
   :type '(choice ('completing-read
+                  'ido-completing-read
                   'helm
                   'counsel)))
 
