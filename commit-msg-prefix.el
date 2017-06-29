@@ -40,18 +40,11 @@
   :group 'commit-msg-prefix
   :type '(choice ('completing-read
                   'ido-completing-read
-                  'helm
-                  'counsel)))
-
-(defvar commit-msg-prefix-input-map
-  '((ido-completing-read . ido-completing-read)
-    (completing-read . completing-read)
-    (helm . commit-msg-prefix-helm-read)
-    (counsel . ivy-read)))
+                  'commit-msg-prefix-helm-read
+                  'ivy-read)))
 
 (defun commit-msg-prefix-input-fun ()
-  (funcall (cdr (assoc commit-msg-prefix-input-method
-                       commit-msg-prefix-input-map))
+  (funcall commit-msg-prefix-input-method
            commit-msg-prefix-prompt
            (commit-msg-prefix-1)))
 
