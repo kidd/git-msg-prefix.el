@@ -20,35 +20,63 @@
 
 ;;; Commentary:
 
-;;
+;;  (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
 
 ;;; Code:
 
 (require 's)
 (require 'dash)
 
-(defvar git-msg-prefix-log-command " git log --pretty=format:\"%s\"")
-(defvar git-log-flags "")
+(defvar commit-msg-prefix-log-command " git log --pretty=format:\"%s\"")
+(defvar commit-log-flags "")
 
-(defvar git-msg-prefix-log-flags "")
-(defvar git-msg-prefix-regex "^\\([^ ]*\\) ")
+(defvar commit-msg-prefix-log-flags "")
+(defvar commit-msg-prefix-regex "^\\([^ ]*\\) ")
 
+(defvar commit-msg-prefix-prompt "pick commit:")
+
+(defcustom commit-msg-prefix-input-method 'counsel ;ido-completing-read
+  "Input method for commit-msg-prefix"
+  :group 'commit-msg-prefix
+  :type '(choice ('completing-read
+                  'helm
+                  'counsel)))
+
+(defvar commit-msg-prefix-input-map
+  '((ido-completing-read . commit-msg-prefix-ido-completing-read)
+    (helm . commit-msg-prefix-helm-read)
+    (counsel . commit-msg-prefix-counsel-read)))
+
+(defun commit-msg-prefix-input-fun (input-method)
+  (cdr (assoc input-method commit-msg-prefix-input-map)))
+
+(defun commit-msg-prefix-ido-completing-read (log-lines)
+  (ido-completing-read commit-msg-prefix-prompt log-lines))
+
+(defun commit-msg-prefix-helm-read (log-lines)
+  (helm :sources (helm-build-sync-source commit-msg-prefix-prompt
+                   :candidates log-lines)))
+
+(defun commit-msg-prefix-counsel-read (log-lines)
+  (ivy-read commit-msg-prefix-prompt log-lines))
+
+
+(defun commit-msg-prefix-1 ()
+  (let* ((vc-command (format "%s %s"
+                              commit-msg-prefix-log-command
+                              commit-msg-prefix-log-flags))
+         (log (s-lines (shell-command-to-string vc-command))))
+    log))
+
+;;;###autoload
 (defun commit-msg-prefix ()
-  (let* ((git-command (format "%s %s"
-                              git-msg-prefix-log-command
-                              git-msg-prefix-log-flags))
-         (log (s-lines (shell-command-to-string git-command)))
-         (issues
-          (mapcar (lambda (x)
-                    (second (s-match git-msg-prefix-regex x)))
-                   log)))
-    (-zip issues log)))
-
-;(commit-msg-prefix)
-
-
-
-
+  (interactive)
+  (insert
+   (second
+    (s-match commit-msg-prefix-regex
+             (funcall (commit-msg-prefix-input-fun
+                       commit-msg-prefix-input-method)
+                      (commit-msg-prefix-1))))))
 
 (provide 'commit-msg-prefix)
 ;;; commit-msg-prefix.el ends here
