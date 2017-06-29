@@ -35,7 +35,7 @@
 
 (defvar commit-msg-prefix-prompt "pick commit:")
 
-(defcustom commit-msg-prefix-input-method 'counsel ;ido-completing-read
+(defcustom commit-msg-prefix-input-method 'ido-completing-read
   "Input method for commit-msg-prefix"
   :group 'commit-msg-prefix
   :type '(choice ('completing-read
@@ -44,6 +44,7 @@
 
 (defvar commit-msg-prefix-input-map
   '((ido-completing-read . commit-msg-prefix-ido-completing-read)
+    (completing-read . completing-read)
     (helm . commit-msg-prefix-helm-read)
     (counsel . commit-msg-prefix-counsel-read)))
 
