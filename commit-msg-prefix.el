@@ -54,11 +54,10 @@
 
 
 (defun commit-msg-prefix-1 ()
-  (let* ((vc-command (format "%s %s"
-                              commit-msg-prefix-log-command
-                              commit-msg-prefix-log-flags))
-         (log (s-lines (shell-command-to-string vc-command))))
-    log))
+  (let ((vc-command (format "%s %s"
+                            commit-msg-prefix-log-command
+                            commit-msg-prefix-log-flags)))
+    (s-lines (shell-command-to-string vc-command))))
 
 ;;;###autoload
 (defun commit-msg-prefix ()
