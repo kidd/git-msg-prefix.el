@@ -1,1 +1,57 @@
-* git-msg-prefix.el
+* commit-msg-prefix.el
+** What
+   In many organizations, git commits have to have a structure, like
+   starting with one word from a list (Add, Fix, Clean, Remove...).
+
+   In other projects, you should start the commit messages with the
+   issue number, or a specific tag referring to the feature you're
+   developing (Billing-123).
+
+   commit-msg-prefix is intended to solve this repetitive task, by
+   providing a prompt with some customized list of options. The
+   default command is to present a searchable list of the previous
+   commits (more recent first), and lets you select the one you want.
+   This list of candidates is configurable via
+   `commit-msg-prefix-log-command`.
+
+   Once selected, the relevant part of the commit line will be
+   extracted from the choosen candidate (via the regex in
+   commit-msg-prefix-regex, and the matched text will be inserted in
+   the current buffer.
+
+** How
+*** Install
+    This package will be in melpa shortly. For now, get it from
+    https://github.com/kidd/commit-msg-prefix.el
+*** Usage
+    Add a hook to activate run the function when starting to write
+    your commit
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
+    #+END_SRC
+
+    Otherwise, add a keybinding to that function or run it manually
+    from the minibuffer.
+    #+BEGIN_SRC emacs-lisp
+      (local-set-key
+       (kbd "C-c i")
+       'commit-msg-prefix)
+    #+END_SRC
+
+*** Configure
+    There are 3 variables to configure:
+
+    - ~commit-msg-prefix-log-command~: defaults to "git log
+      --pretty=format:\"%s\""
+    - ~commit-msg-prefix-log-flags~: defaults to ""
+
+    - ~commit-msg-prefix-regex~: defaults to  "^\\([^ ]*\\) "
+
+     - ~commit-msg-prefix-input-method~: defaults to
+       ido-completing-read. Change it to your favourite input
+       method. ('completing-read 'ido-completing-read
+       'commit-msg-prefix-helm-read 'ivy-read)
+
+
+** Who
+   Raimon Grau <raimonster@gmail.com>
