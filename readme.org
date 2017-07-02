@@ -19,6 +19,7 @@
    commit-msg-prefix-regex, and the matched text will be inserted in
    the current buffer.
 
+   Release post in [[http://puntoblogspot.blogspot.com.es/2017/07/announcing-commit-msg-prefix.html][my blog]].
 ** How
 *** Install
     This package will be in melpa shortly. For now, get it from
@@ -51,7 +52,6 @@
        ido-completing-read. Change it to your favourite input
        method. ('completing-read 'ido-completing-read
        'commit-msg-prefix-helm-read 'ivy-read)
-
 
 ** Who
    Raimon Grau <raimonster@gmail.com>
