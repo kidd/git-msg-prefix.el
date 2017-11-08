@@ -24,6 +24,14 @@
 *** Install
     This package will be in melpa shortly. For now, get it from
     https://github.com/kidd/commit-msg-prefix.el
+    #+BEGIN_SRC emacs-lisp
+(use-package commit-msg-prefix
+  :ensure t
+  :config
+  (setq commit-msg-prefix-log-flags " --since='1 week ago' "
+        commit-msg-prefix-input-method 'commit-msg-prefix-helm-read)
+  (add-hook 'git-commit-mode-hook 'commit-msg-prefix))
+    #+END_SRC
 *** Usage
     Add a hook to activate run the function when starting to write
     your commit
