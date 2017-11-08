@@ -5,6 +5,10 @@
 ;; Author: Raimon Grau <raimonster@gmail.com>
 ;; Keywords: vc, tools
 
+;; URL: http://github.com/areina/helm-dash
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "24") (s "1.11.0") (dash "2.9.0"))
+
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
