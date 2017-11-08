@@ -29,6 +29,7 @@
     your commit
     #+BEGIN_SRC emacs-lisp
     (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
+    (setq commit-msg-prefix-input-method 'commit-msg-prefix-helm-read)
     #+END_SRC
 
     Otherwise, add a keybinding to that function or run it manually
