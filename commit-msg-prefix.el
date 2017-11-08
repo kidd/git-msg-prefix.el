@@ -20,7 +20,13 @@
 
 ;;; Commentary:
 
-;;  (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
+;; Package to help adding information on commits by checking older
+;; commits and extracting a particular substring from each of them.
+
+;; Useful to follow organisation policies on how to write commits.
+
+;; See the readme.org at https://github.com/kidd/commit-msg-prefix.el
+;; for more info.
 
 ;;; Code:
 
