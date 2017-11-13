@@ -45,7 +45,7 @@
 To narrow/extend the candidates listing.  For example:
 \"--author=rgrau --since=1.week.ago --no-merges\"")
 
-(defvar commit-msg-prefix-regex "^\\([^ ]*\\) "
+(defvar commit-msg-prefix-regex "^\\([^ ]*\\)"
   "Regex to match against the populated list. The first match
 will be inserted on the current buffer")
 
@@ -78,7 +78,10 @@ Argument LOG-LINES is a list with all candidates."
   (let ((vc-command (format "%s %s"
                             commit-msg-prefix-log-command
                             commit-msg-prefix-log-flags)))
-    (s-lines (shell-command-to-string vc-command))))
+    (cons
+     (s-prepend (car (vc-git-branches))
+                " - *current branch*")
+     (s-lines (shell-command-to-string vc-command)))))
 
 ;;;###autoload
 (defun commit-msg-prefix ()
