@@ -85,7 +85,7 @@ Argument LOG-LINES is a list with all candidates."
 
 ;;;###autoload
 (defun commit-msg-prefix ()
-  "Inserts the relevant part of the chosen commit.
+  "Insert the relevant part of the chosen commit.
 Relevant meaning the result of `commit-msg-prefix-regex'
 substitution."
   (interactive)
