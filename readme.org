@@ -20,7 +20,7 @@
    the current buffer.
 
    A gif is worth a 10^3 words:
-   [[./img/commit-msg-prefix.gif]]
+   [[./commit-msg-prefix.gif]]
 
    Release post in [[http://puntoblogspot.blogspot.com.es/2017/07/announcing-commit-msg-prefix.html][my blog]].
 ** How
