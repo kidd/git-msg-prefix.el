@@ -43,41 +43,44 @@
 (require 's)
 (require 'dash)
 
-(defvar commit-msg-prefix-log-command "git log --pretty=format:\"%s\""
-  "Main vcs command to run to populate the candidates list.")
+(defgroup commit-msg-prefix nil
+  "Pick a past commit message to build a new commit message."
+  :prefix "commit-msg-prefix-"
+  :group 'applications)
 
-(defvar commit-msg-prefix-log-flags ""
+(defcustom commit-msg-prefix-log-command "git log --pretty=format:\"%s\""
+  "Main vcs command to run to populate the candidates list."
+  :group 'commit-msg-prefix
+  :type 'string)
+
+(defcustom commit-msg-prefix-log-flags ""
   "Extra flags for `commit-msg-prefix-log-command'.
 To narrow/extend the candidates listing.  For example:
-\"--author=rgrau --since=1.week.ago --no-merges\"")
+\"--author=rgrau --since=1.week.ago --no-merges\""
+  :group 'commit-msg-prefix
+  :type 'string)
 
-(defvar commit-msg-prefix-regex "^\\([^ ]*\\)"
+(defcustom commit-msg-prefix-regex "^\\([^ ]*\\)"
   "Regex to match against the populated list. The first match
-will be inserted on the current buffer")
-
-(defvar commit-msg-prefix-prompt "pick commit:")
+will be inserted on the current buffer"
+  :group 'commit-msg-prefix
+  :type 'string)
 
 (defcustom commit-msg-prefix-input-method 'ido-completing-read
   "Input method for ‘commit-msg-prefix’."
   :group 'commit-msg-prefix
   :type '(choice ('completing-read
                   'ido-completing-read
-                  'commit-msg-prefix-helm-read
+                  'helm-comp-read
                   'ivy-read)))
+
+(defvar commit-msg-prefix-prompt "pick commit:")
 
 (defun commit-msg-prefix-input-fun ()
   "Show picker with candidates."
   (funcall commit-msg-prefix-input-method
            commit-msg-prefix-prompt
            (commit-msg-prefix-1)))
-
-(defun commit-msg-prefix-helm-read (prompt log-lines)
-  "Helper picker function for helm.
-Argument PROMPT is the text to be prompted to the user.
-Argument LOG-LINES is a list with all candidates."
-  (helm :sources (helm-build-sync-source prompt
-                   :candidates log-lines)))
-
 
 (defun commit-msg-prefix-1 ()
   "Internal function to fetch all candidates."
