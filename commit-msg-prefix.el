@@ -5,7 +5,7 @@
 ;; Author: Raimon Grau <raimonster@gmail.com>
 ;; Keywords: vc, tools
 
-;; URL: http://github.com/areina/helm-dash
+;; URL: http://github.com/kidd/commit-msg-prefix.el
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24") (s "1.10.0") (dash "2.9.0"))
 
@@ -29,8 +29,14 @@
 
 ;; Useful to follow organisation policies on how to write commits.
 
-;; See the readme.org at https://github.com/kidd/commit-msg-prefix.el
-;; for more info.
+;; The default command presents a searchable list of the previous
+;; commits (more recent first), and lets you select the one you want.
+;; This list of candidates is configurable via
+;; `commit-msg-prefix-log-command`.  Once selected, the relevant part
+;; of the commit line will be extracted from the choosen candidate
+;; via the regex in `commit-msg-prefix-regex', and the matched text
+;; will be inserted in the current buffer.
+
 
 ;;; Code:
 
