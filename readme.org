@@ -32,7 +32,7 @@
   :ensure t
   :config
   (setq commit-msg-prefix-log-flags " --since='1 week ago' "
-        commit-msg-prefix-input-method 'commit-msg-prefix-helm-read)
+        commit-msg-prefix-input-method helm-comp-read)
   (add-hook 'git-commit-mode-hook 'commit-msg-prefix))
     #+END_SRC
 *** Usage
@@ -40,7 +40,7 @@
     your commit
     #+BEGIN_SRC emacs-lisp
     (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
-    (setq commit-msg-prefix-input-method 'commit-msg-prefix-helm-read)
+    (setq commit-msg-prefix-input-method helm-comp-read)
     #+END_SRC
 
     Otherwise, add a keybinding to that function or run it manually

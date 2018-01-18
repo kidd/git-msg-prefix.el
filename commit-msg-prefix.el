@@ -37,6 +37,40 @@
 ;; via the regex in `commit-msg-prefix-regex', and the matched text
 ;; will be inserted in the current buffer.
 
+;; example configurations with use-package:
+
+;; (use-package commit-msg-prefix
+;;   :ensure t
+;;   :config
+;;   (setq commit-msg-prefix-log-flags " --since='1 week ago' "
+;;         commit-msg-prefix-input-method 'helm-comp-read)
+;;   (add-hook 'git-commit-mode-hook 'commit-msg-prefix))
+
+;; bare configuration:
+;;
+;; (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
+;; (setq commit-msg-prefix-input-method 'helm-comp-read)
+
+;; Otherwise, add a keybinding to that function or run it manually
+;; from the minibuffer.
+;;   (local-set-key
+;;    (kbd "C-c i")
+;;    'commit-msg-prefix)
+
+;; Configure
+
+;; There are 3 variables to configure:
+
+;; - ~commit-msg-prefix-log-command~: defaults to "git log
+;;   --pretty=format:\"%s\""
+;; - ~commit-msg-prefix-log-flags~: defaults to ""
+
+;; - ~commit-msg-prefix-regex~: defaults to  "^\\([^ ]*\\) "
+
+;;  - ~commit-msg-prefix-input-method~: defaults to
+;;    ido-completing-read. Change it to your favourite input
+;;    method. ('completing-read 'ido-completing-read
+;;    'helm-comp-read 'ivy-read)
 
 ;;; Code:
 
