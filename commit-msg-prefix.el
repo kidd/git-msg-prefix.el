@@ -66,7 +66,7 @@ will be inserted on the current buffer"
   :group 'commit-msg-prefix
   :type 'string)
 
-(defcustom commit-msg-prefix-input-method 'ido-completing-read
+(defcustom commit-msg-prefix-input-method 'completing-read
   "Input method for ‘commit-msg-prefix’."
   :group 'commit-msg-prefix
   :type '(choice ('completing-read
