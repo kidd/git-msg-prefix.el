@@ -1,4 +1,4 @@
-* commit-msg-prefix.el
+* git-msg-prefix.el
 ** What
    In many organizations, git commits have to have a structure, like
    starting with one word from a list (Add, Fix, Clean, Remove...).
@@ -7,40 +7,40 @@
    issue number, or a specific tag referring to the feature you're
    developing (Billing-123).
 
-   commit-msg-prefix is intended to solve this repetitive task, by
+   git-msg-prefix is intended to solve this repetitive task, by
    providing a prompt with some customized list of options. The
    default command is to present a searchable list of the previous
    commits (more recent first), and lets you select the one you want.
    This list of candidates is configurable via
-   `commit-msg-prefix-log-command`.
+   `git-msg-prefix-log-command`.
 
    Once selected, the relevant part of the commit line will be
    extracted from the choosen candidate (via the regex in
-   commit-msg-prefix-regex, and the matched text will be inserted in
+   git-msg-prefix-regex, and the matched text will be inserted in
    the current buffer.
 
    A gif is worth a 10^3 words:
-   [[./commit-msg-prefix.gif]]
+   [[./git-msg-prefix.gif]]
 
    Release post in [[http://puntoblogspot.blogspot.com.es/2017/07/announcing-commit-msg-prefix.html][my blog]].
 ** How
 *** Install
     This package will be in melpa shortly. For now, get it from
-    https://github.com/kidd/commit-msg-prefix.el
+    https://github.com/kidd/git-msg-prefix.el
     #+BEGIN_SRC emacs-lisp
-(use-package commit-msg-prefix
+(use-package git-msg-prefix
   :ensure t
   :config
-  (setq commit-msg-prefix-log-flags " --since='1 week ago' "
-        commit-msg-prefix-input-method helm-comp-read)
-  (add-hook 'git-commit-mode-hook 'commit-msg-prefix))
+  (setq git-msg-prefix-log-flags " --since='1 week ago' "
+        git-msg-prefix-input-method 'helm-comp-read)
+  (add-hook 'git-commit-mode-hook 'git-msg-prefix))
     #+END_SRC
 *** Usage
     Add a hook to activate run the function when starting to write
     your commit
     #+BEGIN_SRC emacs-lisp
-    (add-hook 'git-commit-mode-hook 'commit-msg-prefix)
-    (setq commit-msg-prefix-input-method helm-comp-read)
+    (add-hook 'git-commit-mode-hook 'git-msg-prefix)
+    (setq git-msg-prefix-input-method 'helm-comp-read)
     #+END_SRC
 
     Otherwise, add a keybinding to that function or run it manually
@@ -48,22 +48,22 @@
     #+BEGIN_SRC emacs-lisp
       (local-set-key
        (kbd "C-c i")
-       'commit-msg-prefix)
+       'git-msg-prefix)
     #+END_SRC
 
 *** Configure
     There are 3 variables to configure:
 
-    - ~commit-msg-prefix-log-command~: defaults to "git log
+    - ~git-msg-prefix-log-command~: defaults to "git log
       --pretty=format:\"%s\""
-    - ~commit-msg-prefix-log-flags~: defaults to ""
+    - ~git-msg-prefix-log-flags~: defaults to ""
 
-    - ~commit-msg-prefix-regex~: defaults to  "^\\([^ ]*\\) "
+    - ~git-msg-prefix-regex~: defaults to  "^\\([^ ]*\\) "
 
-     - ~commit-msg-prefix-input-method~: defaults to
+     - ~git-msg-prefix-input-method~: defaults to
        ido-completing-read. Change it to your favourite input
        method. ('completing-read 'ido-completing-read
-       'commit-msg-prefix-helm-read 'ivy-read)
+       'git-msg-prefix-helm-read 'ivy-read)
 
 ** Who
    Raimon Grau <raimonster@gmail.com>
