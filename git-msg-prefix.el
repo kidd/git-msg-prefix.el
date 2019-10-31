@@ -112,9 +112,10 @@ will be inserted on the current buffer"
 
 (defun git-msg-prefix-input-fun ()
   "Show picker with candidates."
-  (funcall git-msg-prefix-input-method
-           git-msg-prefix-prompt
-           (git-msg-prefix-1)))
+  (let ((ivy-sort-functions-alist nil))
+    (funcall git-msg-prefix-input-method
+             git-msg-prefix-prompt
+             (git-msg-prefix-1))))
 
 (defun git-msg-prefix-1 ()
   "Internal function to fetch all candidates."
