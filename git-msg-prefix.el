@@ -134,7 +134,7 @@ Relevant meaning the result of `git-msg-prefix-regex'
 substitution."
   (interactive)
   (insert
-   (second
+   (cl-second
     (s-match git-msg-prefix-regex
              (git-msg-prefix-input-fun)))))
 
